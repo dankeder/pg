@@ -245,7 +245,7 @@ func BenchmarkQueryRowsGORM(b *testing.B) {
 	})
 }
 
-func BenchmarkQueryHasOneGopg(b *testing.B) {
+func BenchmarkModelHasOneGopg(b *testing.B) {
 	seedDB()
 
 	db := pg.Connect(pgOptions())
@@ -268,7 +268,7 @@ func BenchmarkQueryHasOneGopg(b *testing.B) {
 	})
 }
 
-func BenchmarkQueryHasOneGORM(b *testing.B) {
+func BenchmarkModelHasOneGORM(b *testing.B) {
 	seedDB()
 
 	db, err := gormdb()
@@ -292,6 +292,15 @@ func BenchmarkQueryHasOneGORM(b *testing.B) {
 			}
 		}
 	})
+}
+
+func BenchmarkModelHasManyGopg(b *testing.B) {
+	err := db.Model(&books).Columns("book.*", "Translations").Limit(100).Select()
+}
+
+func BenchmarkModelHasManyGORM(b *testing.B) {
+	var books []Book
+	err := db.Preload("Translations").Limit(100).Find(&books).Error
 }
 
 func BenchmarkQueryRow(b *testing.B) {

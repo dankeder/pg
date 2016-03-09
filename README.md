@@ -166,6 +166,8 @@ func ExampleDB_Query() {
 
 - go-pg generates much more effecient queries for joins.
 
+    Has one relation:
+
     ```
     BenchmarkQueryHasOneGopg-4              	    3000	    344230 ns/op	   92310 B/op	    1384 allocs/op
     BenchmarkQueryHasOneGORM-4              	     300	   5667656 ns/op	 2041169 B/op	  103467 allocs/op
@@ -194,6 +196,10 @@ func ExampleDB_Query() {
     SELECT  * FROM "books"   LIMIT 100
     SELECT  * FROM "authors"  WHERE ("id" IN ('1','2'...'100'))
     ```
+
+    Has many relation:
+
+
 
 ## Howto
 
